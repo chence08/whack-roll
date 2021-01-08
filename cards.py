@@ -5,8 +5,7 @@ import json
 with open("Cards/test.json") as f:
 	imgNames = json.load(f)
 
-# (x, y)
-playerCoords = [(1000, 1150, 850), (50, 200, 100), (1580 ,1730, 100)]
+
 
 class CardModel:
 	def __init__(self, x, y, cardName):
@@ -18,13 +17,21 @@ class CardModel:
 class CardController:
 	def __init__(self):
 		self.cards = []
+		self.playerCoords = [(1000, 1150, 850), (50, 200, 100), (1580, 1730, 100)]
+		self.tableCoords = [(600, 350), (745, 350), (890, 350), (1035, 350), (1180, 350)]
+		
+		for x, y in self.tableCoords:
+			self.cards.append(CardModel(x, y, 'AS'))
 		
 	def addCards(self, playerNo, hand):
-		coords = playerCoords[playerNo]
+		coords = self.playerCoords[playerNo]
 		card1 = CardModel(coords[0], coords[2], hand[0])
 		card2 = CardModel(coords[1], coords[2], hand[1])
 		self.cards.append(card1)
 		self.cards.append(card2)
+		
+	def addCard(self, card):
+		pass
 
 	
 

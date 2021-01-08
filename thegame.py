@@ -17,11 +17,16 @@ class PlayGameState(GameState):
 		self.playerHands = self.dealer.get_all_player_hands()  # list of list of strings
 		self.font = BitmapFont('fasttracker2-style_12x12.png', 12, 12)
 		self.font2 = pygame.font.Font(None, 72)
-		self.inputTick = 0
+		# self.timer = 250
 		self.evaluation = None
+		self.dealerImg = pygame.image.load('dealer.png').convert_alpha()
+		self.currPlayer = 0
+		self.chipCount = [500, 500, 500]
+		self.keyStop = True
+		
 		self.initialise()
 		
-		self.dummy = 0
+		
 		
 	def onEnter(self, previousState):
 		pygame.mixer.music.stop()
@@ -38,14 +43,33 @@ class PlayGameState(GameState):
 	
 	def update(self, gameTime):
 		# print("PlayGame Updating")
-		print(self.game.isClicked)
+		# print(self.game.isClicked)
+		keys = pygame.key.get_pressed()
+		if keys[K_SPACE] and self.keyStop:
+			self.currPlayer = (self.currPlayer + 1) % 3
+			self.keyStop = False
+		if keys[K_r]:
+			self.keyStop = True
+			
+		if self.game.isClicked and self.chipCount[self.currPlayer] >= 10:
+			self.chipCount[self.currPlayer] -= 10
+			
+		
 	
 	def draw(self, surface):
 		self.font.draw(surface, "Player 1", 100, 1000)
-		self.font.draw(surface, "Player 2", 50, 300)
-		self.font.draw(surface, "Player 3", 1580, 300)
+		self.font.draw(surface, str(self.chipCount[0]), 100, 1020)
 		
-		# self.font2.render(self.dummy, )
-
+		self.font.draw(surface, "Player 2", 50, 300)
+		self.font.draw(surface, str(self.chipCount[1]), 50, 320)
+		
+		self.font.draw(surface, "Player 3", 1580, 300)
+		self.font.draw(surface, str(self.chipCount[2]), 1580, 320)
+		
 		for view in self.renderers:
 			view.render(surface)
+		
+		dealx = self.card_controller.playerCoords[self.currPlayer][0]
+		dealy = self.card_controller.playerCoords[self.currPlayer][2]
+
+		surface.blit(self.dealerImg, (dealx, dealy))
