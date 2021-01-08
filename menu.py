@@ -11,7 +11,10 @@ class MainMenuState(GameState):
         self.font = BitmapFont('fasttracker2-style_12x12.png', 12, 12)
         self.index = 0
         self.inputTick = 0
-        self.menuItems = ['Start Game', 'Achievements', 'Options', 'Quit']
+        self.menuItems = ['Play', 'Quit']
+        self.background = pygame.image.load("menu_wallpaper.jpg").convert()
+        pygame.mixer.music.load("bg_music.mp3")
+        pygame.mixer.music.play()
 
     def setPlayState(self, state):
         self.playGameState = state
@@ -51,7 +54,8 @@ class MainMenuState(GameState):
                 print(mousex, mousey)
 
     def draw(self, surface):
-        self.font.centre(surface, "something", 48)
+        surface.blit(self.background, (0,0))
+        self.font.centre(surface, "Game Title", 48)
 
         count = 0
         y = surface.get_rect().height - len(self.menuItems) * 100
