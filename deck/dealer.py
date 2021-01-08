@@ -4,6 +4,11 @@ from treys import Card, Evaluator
 
 class Dealer: 
     def __init__(self, players): 
+        """Creates dealer object
+
+        :param players: number of players, player index is important
+        :type players: int
+        """
         self.deck = Deck()
         self.players = players
         self.table = []
@@ -23,11 +28,21 @@ class Dealer:
         #     self.evalHand.append(h)
 
     def clear(self): 
+        """Resets hands and table
+        """
         self.player_hands = []
+        self.evalHand = []
         self.table = []
         self.evalHand = []
 
     def open_table_card(self, minigame_winner): 
+        """Opens new table card and checks hands if >= 3 cards
+
+        :param minigame_winner: index of player who won minigame
+        :type minigame_winner: int
+        :return: -1 if less than 3 cards opened, tuple(list of scores, list of classes) if >= 3, lower score is better
+        :rtype: int or tuple
+        """
         hand = self.player_hands[minigame_winner]
         if hand[0][0] == hand[1][0]: 
             card = self.deck.draw_advantage_card(suit=hand[0][0])
