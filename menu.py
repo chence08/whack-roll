@@ -13,13 +13,14 @@ class MainMenuState(GameState):
         self.inputTick = 0
         self.menuItems = ['Play', 'Quit']
         self.background = pygame.image.load("menu_wallpaper.jpg").convert()
-        pygame.mixer.music.load("bg_music.mp3")
-        pygame.mixer.music.play()
+        # pygame.mixer.music.load("bg_music.mp3")
+        # pygame.mixer.music.play()
 
     def setPlayState(self, state):
         self.playGameState = state
 
     def update(self, gameTime):
+        print("Menu Updating")
         keys = pygame.key.get_pressed()
         if (keys[K_UP] or keys[K_DOWN]) and self.inputTick == 0:
             '''

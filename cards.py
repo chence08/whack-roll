@@ -33,7 +33,6 @@ class CardView:
 		self.CardController = cardController
 		self.images = []
 		for c in self.CardController.cards:
-			print(c.img)
 			self.images.append(pygame.image.load(c.img))
 		
 	def render(self, surface):

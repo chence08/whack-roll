@@ -8,7 +8,7 @@ from UI import *
 class GameState:
     def __init__(self, game):
         self.game = game
-        self.action_manager = ActionManager()
+
 
 
     def onEnter(self, previousState):
@@ -31,7 +31,6 @@ class GameState:
         This method is called by the game allowing the state to update itself.
         The 'gameTime' (in milliseconds) is the time since the last call to this method.
         '''
-        print("Updating game state")
 
 
 class Game:
