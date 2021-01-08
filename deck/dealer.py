@@ -63,10 +63,26 @@ class Dealer:
         :return: Players' scores and classes
         :rtype: tuple of lists
         """
+        if len(self.table) < 3: 
+            return -1
         player_scores = [self.eval.evaluate(self.evalTable, h) for h in self.evalHand]
         player_classes = [self.eval.class_to_string(self.eval.get_rank_class(s)) for s in player_scores]
         return player_scores, player_classes
-    
+      
+    def get_player_hand(self, player): 
+        return self.player_hands[player]
+
+    def get_all_player_hands(self): 
+        return [[card[1] + card[0] for card in player] for player in self.player_hands]
+
+    def get_table_cards(self): 
+        return [card[1] + card[0] for card in self.table]
+
+    def get_player_eval(self, player): 
+        score = self.eval.evaluate(self.evalTable, self.get_player_hand(player))
+        hand_type = self.eval.class_to_string(self.eval.get_rank_class(score))
+        return score, hand_type
+     
 # testing
 if __name__ == '__main__':
     dealer = Dealer(3)
