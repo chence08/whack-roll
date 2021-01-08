@@ -38,7 +38,7 @@ class Game:
         pygame.init()
         pygame.display.set_caption(gameName)
         self.fpsClock = pygame.time.Clock()
-        self.mainwindow = pygame.display.set_mode((width, height))
+        self.mainwindow = pygame.display.set_mode((width, height), RESIZABLE)
         self.background = pygame.Color(0, 0, 0)  # Pygame object for color representations
         self.currentState = None
         self.mousex = self.mousey = -1

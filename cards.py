@@ -30,10 +30,8 @@ class CardController:
 		self.cards.append(card1)
 		self.cards.append(card2)
 		
-	def addCard(self, card):
+	def addCard(self, cardNo: int, card: str):
 		pass
-
-	
 
 class CardView:
 	def __init__(self, cardController):
