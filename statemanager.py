@@ -82,4 +82,4 @@ class Game:
                 self.currentState.draw(self.mainwindow)
 
             pygame.display.update()
-            self.fpsClock.tick(60)  # frame rate
+            self.fpsClock.tick(30)  # frame rate

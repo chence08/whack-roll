@@ -6,6 +6,7 @@ from deck.dealer import Dealer
 from UI import *
 from bitmapfont import *
 
+# to nest bricks inside this class, idk how just copy paste thanks
 
 class PlayGameState(GameState):
 	def __init__(self, game):
@@ -24,7 +25,7 @@ class PlayGameState(GameState):
 		# self.timer = 250
 		self.dealerImg = pygame.image.load('dealer.png').convert_alpha()
 		self.trophyImg = pygame.image.load('trophy.png').convert_alpha()
-		self.trophyCoords = [(200, 1000), (150, 300), (1480, 300)]
+		self.trophyCoords = [(200, 900), (150, 300), (1480, 300)]
 		self.evalCoords = {0:(100, 1040), 1:(50, 340), 2:(1580, 340)}
 		
 		self.currPlayer = 2
@@ -32,10 +33,16 @@ class PlayGameState(GameState):
 		self.keyStop = True
 		
 		self.initialise()
-		
-	def newRound(self):
-		self.initialise()
 	
+	def newGame(self):
+		self.gameOver = False
+		self.players = [0, 1, 2]
+		self.turn = 0
+		
+		self.currPlayer = 2
+		self.chipCount = {0: 500, 1: 500, 2: 500}
+		self.keyStop = True
+		self.initialise()
 	
 	def onEnter(self, previousState):
 		pygame.mixer.music.stop()
@@ -76,17 +83,20 @@ class PlayGameState(GameState):
 	def update(self, gameTime):
 		keys = pygame.key.get_pressed()
 		if self.gameOver:
-		# 	if keys[K_SPACE] and self.keyStop:
-		# 		self.__init__
-			pass
+			if keys[K_SPACE]:
+				self.newGame()
 		else:
+			# rotate dealer/currPlayer
 			if keys[K_SPACE] and self.keyStop:
 				self.currPlayer = (self.currPlayer + 1) % len(self.players)
 				self.keyStop = False
+			
+			# Reset keyboard jammer
 			if keys[K_r]:
 				self.keyStop = True
 				self.toDeal = True
 			
+			# place bets by holding keyboard down
 			if keys[K_d] and self.toDeal and self.turn <= 3:
 				self.turn += 1
 				if self.turn >= 1:
@@ -98,6 +108,11 @@ class PlayGameState(GameState):
 				self.chipCount[self.players[self.currPlayer]] -= 10
 				self.pot += 10
 				
+			if keys[K_f]:
+				#########################################################
+				# Fold is quite complicated to implement, please consider
+				pass
+			
 			# winner check
 			if self.turn == 4:
 				scores = self.dealer.eval_winner()[0]
@@ -116,7 +131,7 @@ class PlayGameState(GameState):
 						print(loser)
 			
 				if len(self.players) > 1:
-					self.newRound()
+					self.initialise()
 					self.turn = -1
 				else:
 					self.gameOver = True
@@ -125,24 +140,32 @@ class PlayGameState(GameState):
 		
 	
 	def draw(self, surface):
+		self.font.draw(surface, "Player 1", 100, 1000)
+		self.font.draw(surface, str(self.chipCount[0]), 100, 1020)
+		
+		self.font.draw(surface, "Player 2", 50, 300)
+		self.font.draw(surface, str(self.chipCount[1]), 50, 320)
+		
+		self.font.draw(surface, "Player 3", 1580, 300)
+		self.font.draw(surface, str(self.chipCount[2]), 1580, 320)
+		
 		if self.gameOver:
-			self.font.centre(surface, str(self.players[0]), 520)
+			winnerx = self.trophyCoords[self.players[0]][0]
+			winnery = self.trophyCoords[self.players[0]][1]
+
+			surface.blit(self.trophyImg, (winnerx, winnery))
 			self.font.centre(surface, "Press Spacebar to replay!", 560)
 		
 		else:
 			self.font.centre(surface, self.turnNames[self.turn], 48)
 			self.font.centre(surface, f"Pot: {self.pot}", 80)
 			
-			self.font.draw(surface, "Player 1", 100, 1000)
-			self.font.draw(surface, str(self.chipCount[0]), 100, 1020)
 			# self.font.draw(surface, self.evaluation[0], 100, 1040)
 			
-			self.font.draw(surface, "Player 2", 50, 300)
-			self.font.draw(surface, str(self.chipCount[1]), 50, 320)
+			
 			# self.font.draw(surface, self.evaluation[1], 50, 340)
 			
-			self.font.draw(surface, "Player 3", 1580, 300)
-			self.font.draw(surface, str(self.chipCount[2]), 1580, 320)
+			
 			# self.font.draw(surface, self.evaluation[2], 1580, 340)
 	
 			evalCount = 0

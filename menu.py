@@ -13,8 +13,8 @@ class MainMenuState(GameState):
         self.inputTick = 0
         self.menuItems = ['Play', 'Quit']
         self.background = pygame.image.load("menu_wallpaper.jpg").convert()
-        # pygame.mixer.music.load("bg_music.mp3")
-        # pygame.mixer.music.play()
+        pygame.mixer.music.load("bg_music.mp3")
+        pygame.mixer.music.play()
 
     def setPlayState(self, state):
         self.playGameState = state
