@@ -49,11 +49,6 @@ class MainMenuState(GameState):
             elif self.index == 0:
                 self.game.changeState(self.playGameState)
 
-        for event in pygame.event.get():
-            if event.type == MOUSEMOTION:
-                mousex, mousey = event.pos
-                print(mousex, mousey)
-
     def draw(self, surface):
         surface.blit(self.background, (0,0))
         self.font.centre(surface, "Game Title", 48)

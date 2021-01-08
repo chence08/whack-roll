@@ -41,6 +41,8 @@ class Game:
         self.mainwindow = pygame.display.set_mode((width, height))
         self.background = pygame.Color(0, 0, 0)  # Pygame object for color representations
         self.currentState = None
+        self.mousex = self.mousey = -1
+        self.isClicked = False
         
     def changeState(self, newState):
         if self.currentState != None:
@@ -61,6 +63,14 @@ class Game:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == MOUSEMOTION:
+                    self.mousex, self.mousey = event.pos
+                if event.type == MOUSEBUTTONDOWN:
+                    print(self.mousex, self.mousey)
+                    self.isClicked = True
+                if event.type == MOUSEBUTTONUP:
+                    self.isClicked = False
+
 
             gameTime = self.fpsClock.get_time()
 
