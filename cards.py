@@ -5,6 +5,9 @@ import json
 with open("Cards/test.json") as f:
 	imgNames = json.load(f)
 
+# (x, y)
+playerCoords = [(1000, 1150, 850), (50, 200, 100), (1580 ,1730, 100)]
+
 class CardModel:
 	def __init__(self, x, y, cardName):
 		self.x = x
@@ -14,9 +17,16 @@ class CardModel:
 		
 class CardController:
 	def __init__(self):
-		card1 = CardModel(100, 850, 'AS')
-		card2 = CardModel(300, 850, '7C')
-		self.cards = [card1, card2]
+		self.cards = []
+		
+	def addCards(self, playerNo, hand):
+		coords = playerCoords[playerNo]
+		card1 = CardModel(coords[0], coords[2], hand[0])
+		card2 = CardModel(coords[1], coords[2], hand[1])
+		self.cards.append(card1)
+		self.cards.append(card2)
+
+	
 
 class CardView:
 	def __init__(self, cardController):

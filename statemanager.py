@@ -1,5 +1,6 @@
 import pygame, os, sys
 from pygame.locals import *
+from UI import *
 
 
 # Basic state class and State Machine Manager
@@ -7,6 +8,8 @@ from pygame.locals import *
 class GameState:
     def __init__(self, game):
         self.game = game
+        self.action_manager = ActionManager()
+
 
     def onEnter(self, previousState):
         '''
@@ -28,7 +31,7 @@ class GameState:
         This method is called by the game allowing the state to update itself.
         The 'gameTime' (in milliseconds) is the time since the last call to this method.
         '''
-        pass
+        print("Updating game state")
 
 
 class Game:
@@ -39,7 +42,7 @@ class Game:
         self.mainwindow = pygame.display.set_mode((width, height))
         self.background = pygame.Color(0, 0, 0)  # Pygame object for color representations
         self.currentState = None
-
+        
     def changeState(self, newState):
         if self.currentState != None:
             self.currentState.onExit()  # exit currentState

@@ -1,4 +1,4 @@
-from deck import Deck
+from .deck import Deck
 from random import randint
 from treys import Card, Evaluator
 
