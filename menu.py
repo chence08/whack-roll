@@ -12,6 +12,9 @@ class MainMenuState(GameState):
         self.index = 0
         self.inputTick = 0
         self.menuItems = ['Play', 'Quit']
+        self.background = pygame.image.load("menu_wallpaper.jpg").convert()
+        pygame.mixer.music.load("bg_music.mp3")
+        pygame.mixer.music.play()
 
     def setPlayState(self, state):
         self.playGameState = state
@@ -51,6 +54,7 @@ class MainMenuState(GameState):
                 print(mousex, mousey)
 
     def draw(self, surface):
+        surface.blit(self.background, (0,0))
         self.font.centre(surface, "Game Title", 48)
 
         count = 0

@@ -10,7 +10,7 @@ class PlayGameState(GameState):
 		self.initialise()
 		
 	def onEnter(self, previousState):
-		pass
+		pygame.mixer.music.stop()
 	
 	def initialise(self):
 		self.card_controller = CardController()

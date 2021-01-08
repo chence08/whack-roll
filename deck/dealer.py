@@ -1,4 +1,4 @@
-from .deck import Deck
+from deck import Deck
 from random import randint
 from treys import Card, Evaluator
 
@@ -20,9 +20,9 @@ class Dealer:
         self.player_hands = [[self.deck.draw() for j in range(2)] for i in range(self.players)]
         
         self.evalHand = [[Card.new(c[1] + c[0].lower()) for c in hand] for hand in self.player_hands]
-        # for hand in self.player_hands: 
+        # for hand in self.player_hands:
         #     h = []
-        #     for c in hand: 
+        #     for c in hand:
         #         print(c)
         #         h.append(Card.new(c[1] + c[0].lower()))
         #     self.evalHand.append(h)
@@ -66,3 +66,8 @@ class Dealer:
         player_scores = [self.eval.evaluate(self.evalTable, h) for h in self.evalHand]
         player_classes = [self.eval.class_to_string(self.eval.get_rank_class(s)) for s in player_scores]
         return player_scores, player_classes
+    
+# testing
+if __name__ == '__main__':
+    dealer = Dealer(3)
+    dealer.initialise_hand
