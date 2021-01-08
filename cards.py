@@ -20,8 +20,8 @@ class CardController:
 		self.playerCoords = [(1000, 1150, 850), (50, 200, 100), (1580, 1730, 100)]
 		self.tableCoords = [(600, 350), (745, 350), (890, 350), (1035, 350), (1180, 350)]
 		
-		for x, y in self.tableCoords:
-			self.cards.append(CardModel(x, y, 'AS'))
+		# for x, y in self.tableCoords:
+		# 	self.cards.append(CardModel(x, y, 'AS'))
 		
 	def addCards(self, playerNo, hand):
 		coords = self.playerCoords[playerNo]
@@ -31,7 +31,9 @@ class CardController:
 		self.cards.append(card2)
 		
 	def addCard(self, cardNo: int, card: str):
-		pass
+		x = self.tableCoords[cardNo][0]
+		y = self.tableCoords[cardNo][1]
+		self.cards.append(CardModel(x, y, card))
 
 class CardView:
 	def __init__(self, cardController):
