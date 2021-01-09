@@ -6,7 +6,7 @@ from deck.dealer import Dealer
 from UI import *
 from bitmapfont import *
 
-# to nest bricks inside this class, idk how just copy paste thanks
+# to nest bricks inside this class, idk how lmao thanks
 
 class PlayGameState(GameState):
 	def __init__(self, game):

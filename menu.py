@@ -51,7 +51,7 @@ class MainMenuState(GameState):
 
     def draw(self, surface):
         surface.blit(self.background, (0,0))
-        self.font.centre(surface, "Game Title", 48)
+        self.font.centre(surface, "team#263:whack&roll - POKERBRICKS", 48)
 
         count = 0
         y = surface.get_rect().height - len(self.menuItems) * 100
