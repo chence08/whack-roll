@@ -2,6 +2,8 @@
 
 `Spacebar` to play
 
+`click mouse` to place bets for current player, indicated by dealer button
+
 `Spacebar` to go to next player.
 
 
